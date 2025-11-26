@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda en Línea</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<style>
+
+/* Estilos Generales */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header */
+.header {
+    background: #fff;
+    color: #333;
+    padding: 1rem 0;
+    border-bottom: 2px solid #eee;
+}
+
+.header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    margin: 0;
+}
+
+
+
+/* Estilos para el logo */
+.logo img {
+
+  max-width: 150px;
+  height: 120px;
+  border-radius: 50%;
+    }
+
+.nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.nav ul li {
+    margin-left: 20px;
+}
+
+.nav ul li a {
+    color: #333;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+
+.product-card button:hover {
+    background: #0056b3;
+}
+
+
+
+
+/* Beneficios */
+.beneficios {
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.beneficios h2 {
+  color: #27ae60;
+  margin-bottom: 30px;
+}
+
+.beneficios ul {
+  list-style: none;
+  max-width: 600px;
+  margin: auto;
+  text-align: left;
+  line-height: 1.8;
+}
+
+.header .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    text-align: center;
+}
+
+/* Asegura que el menú y los iconos se alineen */
+.nav ul {
+    display: flex;
+    align-items: center;
+}
+
+.header-icons {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.header-icons img {
+    width: 26px;
+    height: 26px;
+    transition: transform 0.2s ease, filter 0.2s ease;
+    cursor: pointer;
+}
+
+.header-icons img:hover {
+    transform: scale(1.15);
+    filter: brightness(1.2);
+}
+
+
+.registro-container {
+    max-width: 400px;
+    margin: 60px auto;
+    background: #fff;
+    padding: 30px 40px;
+    border-radius: 10px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+}
+
+.registro-container h2 {
+    text-align: center;
+    color: #27ae60;
+    margin-bottom: 20px;
+}
+
+.registro-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.registro-container input {
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+.registro-container button {
+    background: linear-gradient(45deg, #00e676, #00c853);
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.registro-container button:hover {
+    background: linear-gradient(45deg, #00c853, #00a844);
+}
+
+.registro-container p {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.registro-container a {
+    color: #00c853;
+    text-decoration: none;
+}
+
+.registro-container a:hover {
+    text-decoration: underline;
+
+
+}
+
+@media (max-width: 768px) {
+  .header .container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+  }
+
+  .logo {
+    order: 1;
+  }
+
+  .nav {
+    order: 2;
+    width: 100%;
+  }
+
+  .nav ul {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .header-icons {
+    order: 3;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .login-btn span {
+    display: none;
+  }
+
+  .logo img {
+    max-width: 100px;
+    height: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav ul li {
+    margin-left: 0;
+  }
+
+  .registro-container {
+    padding: 15px;
+  }
+}
+
+
+
+
+
+/* Footer */
+.footer {
+    background: #333;
+    color: #fff;
+    text-align: center;
+    padding: 1rem 0;
+    margin-top: 2rem;
+}
+
+
+
+</style>
+
+<body>
+
+    <header class="header">
+        <div class="container">
+            <a  href="#" class="logo">
+
+<img src="imagenes/logo.jpeg" alt="Una camiseta de algodón de color azul">
+</a>
+            <nav class="nav">
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="frutas.html">Frutas</a></li>
+                    <li><a href="verduras.html">Verduras</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </nav>
+
+ <!-- Iconos de redes y usuario -->
+        <div class="header-icons">
+<a href="https://wa.me/51933470244" target="_blank" class="social-icon">
+        <img src="imagenes/whatsapp.png" alt="WhatsApp">
+    </a>
+    <a href="https://tiktok.com/@tuusuario" target="_blank" class="social-icon">
+        <img src="imagenes/tiktok.png" alt="TikTok">
+    </a>
+            <a href="https://facebook.com" target="_blank" class="social-icon">
+                <img src="imagenes/facebook.png" alt="Facebook">
+            </a>
+            <a href="https://instagram.com" target="_blank" class="social-icon">
+                <img src="imagenes/instagram.png" alt="Instagram">
+            </a>
+
+
+ <!-- Login separado -->
+
+<div class="login-btn" id="openModal" style="cursor: pointer;">
+    <img src="imagenes/user.png" alt="Usuario">
+    <span>Entrar</span>
+</div>
+   
+
+            
+        </div>
+    </header>
+
+
+<div class="registro-container">
+    <h2>Crear Cuenta</h2>
+    <form action="procesar_registro.php" method="POST">
+        <input type="text" name="nombre" placeholder="Nombre completo" required>
+        <input type="email" name="correo" placeholder="Correo electrónico" required>
+        <input type="password" name="password" placeholder="Contraseña" required minlength="6">
+        <input type="password" name="confirmar_password" placeholder="Confirmar contraseña" required minlength="6">
+        <button type="submit">Registrarse</button>
+    </form>
+    <p>¿Ya tienes cuenta? <a href="#" onclick="history.back()">Iniciar sesión</a></p>
+</div>
+       <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Mi Tienda. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+</body>
+</html>

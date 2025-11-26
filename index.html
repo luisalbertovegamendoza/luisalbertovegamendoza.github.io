@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda en Línea</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<style>
+
+/* =======================
+    Estilos Base y Generales
+======================= */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* =======================
+    Header
+======================= */
+.header {
+    background: #fff;
+    color: #333;
+    padding: 1rem 0;
+    border-bottom: 2px solid #eee;
+}
+
+.header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo img {
+    max-width: 150px; 
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Menú Principal */
+.nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    gap: 15px; 
+}
+
+.nav ul li a {
+    color: #333;
+    text-decoration: none;
+    font-weight: 700;
+    padding: 8px 10px;
+    transition: color 0.2s ease;
+}
+
+.nav ul li a:hover {
+    color: #00c853;
+}
+
+/* Contenedor de Nav y Acciones */
+.nav-and-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px; 
+}
+
+/* Iconos sociales */
+.header-icons {
+    display: flex;
+    align-items: center;
+    gap: 8px; 
+}
+
+.header-icons img {
+    width: 26px;
+    height: 26px;
+    transition: transform 0.2s ease, filter 0.2s ease;
+    cursor: pointer;
+}
+
+.header-icons img:hover {
+    transform: scale(1.15);
+    filter: brightness(1.2);
+}
+
+/* Botón de Login */
+.login-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: linear-gradient(45deg, #00c853, #009624);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.login-btn img {
+    width: 20px;
+    height: 20px;
+    filter: invert(1);
+}
+
+.login-btn:hover {
+    opacity: 0.9;
+    transform: scale(1.05);
+}
+
+/* Menú Hamburguesa (Icono) */
+.menu-toggle {
+    display: none; 
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+    padding: 5px;
+}
+
+.menu-toggle span {
+    width: 25px;
+    height: 3px;
+    background: #333;
+    border-radius: 2px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* =======================
+    Hero Section
+======================= */
+.hero {
+    position: relative;
+    text-align: center;
+    background: url('imagenes/home.jpg') no-repeat center center/cover;
+    color: white;
+    padding: 140px 20px;
+    overflow: hidden; 
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    z-index: 1;
+    pointer-events: none; 
+}
+
+.hero h1,
+.hero p,
+.hero .btn {
+    position: relative;
+    z-index: 2;
+}
+
+.hero h1 {
+    font-size: 3rem; 
+    font-weight: 900;
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.7); 
+    margin-bottom: 15px;
+}
+
+.hero p {
+    font-size: 1.4rem;
+    font-weight: 500;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.6);
+    max-width: 800px;
+    margin: auto;
+    margin-bottom: 25px;
+}
+
+/* Botón principal (General) */
+.btn {
+    display: inline-block;
+    margin: 8px;
+    background: linear-gradient(45deg, #ff9800, #ff5722); 
+    color: white;
+    padding: 14px 28px;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.4);
+}
+
+/* Variante de color verde */
+.btn.verde {
+    background: linear-gradient(45deg, #00e676, #00c853);
+}
+
+/* =======================
+    Beneficios Section
+======================= */
+.beneficios {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.beneficios h2 {
+    color: #27ae60;
+    margin-bottom: 30px;
+}
+
+.beneficios ul {
+    list-style: none;
+    max-width: 600px;
+    margin: auto;
+    padding-left: 0;
+    text-align: left;
+    line-height: 1.8;
+}
+
+/* =======================
+    Footer
+======================= */
+.footer {
+    background: #333;
+    color: #fff;
+    text-align: center;
+    padding: 1rem 0;
+    margin-top: 2rem;
+}
+
+/* =======================
+    Modal de Login
+======================= */
+.modal {
+    display: none;	
+    position: fixed;	
+    z-index: 9999; 
+    left: 0;
+    top: 0;
+    width: 100%;	
+    height: 100%;
+    overflow: auto;	
+    background-color: rgba(0,0,0,0.5);	
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 10% auto;	
+    padding: 25px 30px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.modal-content h2 {
+    margin-top: 0;
+    color: #27ae60;
+    text-align: center;
+}
+
+.modal-content input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.modal-content button {
+    width: 100%;
+    padding: 10px;
+    background: linear-gradient(45deg, #00e676, #00c853);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.modal-content button:hover {
+    background: linear-gradient(45deg, #00c853, #00b342);
+}
+
+.modal-content p {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.modal-content a {
+    color: #00c853;
+    text-decoration: none;
+}
+
+.modal-content a:hover {
+    text-decoration: underline;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: black;
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+/* =======================
+    Media Queries (Responsividad)
+======================= */
+
+/* 1. Header en móvil (Menú Hamburguesa) */
+@media (max-width: 768px) {
+    
+    .header .container {
+        justify-content: space-between;
+    }
+    
+    .menu-toggle {
+        display: flex; /* Mostrar el icono del menú hamburguesa */
+    }
+
+    .nav-and-actions {
+        display: none; /* Ocultar por defecto */
+        flex-direction: column; 
+        align-items: center; 
+        width: 100%; 
+        gap: 15px;
+        padding: 15px 0;
+        
+        position: absolute; 
+        top: 100px; 
+        left: 0;
+        background-color: #fff; 
+        border-top: 1px solid #eee;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        z-index: 10;
+    }
+
+    .nav-and-actions.active {
+        display: flex; /* Mostrar al hacer clic */
+    }
+
+    .nav ul {
+        flex-direction: column;
+        gap: 0;
+        width: 100%;
+    }
+
+    .nav ul li {
+        width: 100%;
+        margin: 0;
+    }
+
+    .nav ul li a {
+        display: block;
+        padding: 12px;
+        border-bottom: 1px solid #f4f4f4;
+    }
+    
+    .header-icons {
+        justify-content: center;
+    }
+
+    .login-btn {
+        width: 90%; 
+        justify-content: center;
+        margin-top: 5px;
+        margin-left: 0;
+    }
+}
+
+/* 2. Hero y contenido general en dispositivos pequeños */
+@media (max-width: 600px) {
+    .logo img {
+        max-width: 100px;
+        height: auto;
+    }
+
+    .hero {
+        padding: 80px 15px;
+    }
+
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .hero p {
+        font-size: 1.1rem;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        font-size: 1rem;
+    }
+
+    .beneficios {
+        padding: 40px 15px;
+    }
+
+    .modal-content {
+        margin: 20% auto;
+        width: 95%;
+    }
+}
+
+</style>
+
+<body>
+
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="imagenes/logo.jpeg" alt="Logo de la tienda de frutas">
+            </a>
+
+            <div class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <div class="nav-and-actions" id="navAndActions">
+                <nav class="nav">
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="frutas.html">Frutas</a></li>
+                        <li><a href="verduras.html">Verduras</a></li>
+                        <li><a href="contacto.html">Contacto</a></li>
+                    </ul>
+                </nav>
+                
+                <div class="header-icons">
+                    <a href="https://wa.me/51933470244" target="_blank" class="social-icon"><img src="imagenes/whatsapp.png" alt="WhatsApp"></a>
+                    <a href="https://tiktok.com/@tuusuario" target="_blank" class="social-icon"><img src="imagenes/tiktok.png" alt="TikTok"></a>
+                    <a href="https://facebook.com" target="_blank" class="social-icon"><img src="imagenes/facebook.png" alt="Facebook"></a>
+                    <a href="https://instagram.com" target="_blank" class="social-icon"><img src="imagenes/instagram.png" alt="Instagram"></a>
+                </div>
+
+                <div class="login-btn" id="openModal" style="cursor: pointer;">
+                    <img src="imagenes/user.png" alt="Usuario">
+                    <span>Entrar</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Frutas y Verduras Directas del Campo</h1>
+            <p>Somos una startup peruana que lleva a tu mesa productos frescos, naturales y de calidad.</p>
+            <a href="verduras.html" class="btn verde">Ver Verduras</a>
+            <a href="frutas.html" class="btn">Ver Frutas</a>
+        </div>
+    </section>
+
+    <section class="beneficios">
+        <h2>¿Por qué comprar en Primera Fase?</h2>
+        <ul>
+            <li>🌱 **Frescura garantizada** desde el agricultor</li>
+            <li>📦 **Entrega rápida** en Villa El Salvador</li>
+            <li>💬 Compra fácil por **WhatsApp**</li>
+            <li>🤝 **Apoyo directo** a productores locales</li>
+        </ul>
+    </section>
+
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <h2>Iniciar Sesión</h2>
+            <form>
+                <input type="email" placeholder="Correo electrónico" required>
+                <input type="password" placeholder="Contraseña" required>
+                <button type="submit">Entrar</button>
+            </form>
+            <p>¿No tienes cuenta? <a href="registro.html">Regístrate aquí</a></p>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Mi Tienda. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+<script>
+
+// ===================================
+// Lógica para el Menú Hamburguesa (Responsivo)
+// ===================================
+const menuToggle = document.getElementById('menuToggle');
+const navAndActions = document.getElementById('navAndActions');
+
+if (menuToggle && navAndActions) {
+    menuToggle.addEventListener('click', () => {
+        navAndActions.classList.toggle('active');
+        menuToggle.classList.toggle('open'); 
+    });
+}
+
+// ===================================
+// Lógica para el Modal de Login
+// ===================================
+
+const openModalBtn = document.getElementById("openModal");
+const closeModalBtn = document.getElementById("closeModal");
+const loginModal = document.getElementById("loginModal");
+
+// 1. Abrir modal
+if (openModalBtn && loginModal) {
+    openModalBtn.addEventListener("click", function() {
+        loginModal.style.display = "block";
+    });
+}
+
+// 2. Cerrar modal con el botón 'x'
+if (closeModalBtn && loginModal) {
+    closeModalBtn.addEventListener("click", function() {
+        loginModal.style.display = "none";
+    });
+}
+
+// 3. Cerrar modal haciendo clic fuera de él
+window.onclick = function(event) {
+    if (loginModal && event.target === loginModal) {
+        loginModal.style.display = "none";
+    }
+};
+</script>
+
+</body>
+</html>

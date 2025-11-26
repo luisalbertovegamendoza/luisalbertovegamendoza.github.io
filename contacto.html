@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda en Línea</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+/* =======================
+    Estilos Base
+======================= */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* =======================
+    Header
+======================= */
+.header {
+    background: #fff;
+    padding: 1rem 0;
+    border-bottom: 2px solid #eee;
+}
+
+.header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo img {
+    max-width: 150px;
+    height: auto;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Menú Principal */
+.nav ul {
+    list-style: none;
+    display: flex;
+    padding: 0;
+    margin: 0;
+    gap: 20px;
+}
+
+.nav ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 700;
+    padding: 10px 0; /* Para mejor área de clic */
+    transition: color 0.2s ease;
+}
+
+.nav ul li a:hover {
+    color: #00c853;
+}
+
+/* Contenedor de Nav y Acciones */
+.nav-and-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Iconos sociales */
+.header-icons {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.header-icons img {
+    width: 26px;
+    height: 26px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.header-icons img:hover {
+    transform: scale(1.15);
+}
+
+/* Botón de Login */
+.login-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: linear-gradient(45deg, #00c853, #009624);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.login-btn:hover {
+    opacity: 0.9;
+}
+
+.login-btn img {
+    width: 20px;
+    height: 20px;
+    filter: invert(1);
+}
+
+/* Menú Hamburguesa (Icono) */
+.menu-toggle {
+    display: none; /* Oculto por defecto en escritorio */
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+    padding: 5px;
+}
+
+.menu-toggle span {
+    width: 25px;
+    height: 3px;
+    background: #333;
+    border-radius: 2px;
+}
+
+
+/* =======================
+    Formulario de Contacto
+======================= */
+.contacto {
+    padding: 60px 20px;
+    background-color: #ecf0f1;
+    text-align: center;
+}
+
+.contacto h2 {
+    color: #27ae60;
+    margin-bottom: 10px;
+}
+
+.contacto p {
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+}
+
+.formulario-contacto {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: left;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.campo {
+    margin-bottom: 20px;
+}
+
+.campo label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.campo input,
+.campo textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    box-sizing: border-box; /* Incluir padding y borde en el ancho total */
+}
+
+.formulario-contacto .btn {
+    background-color: #2ecc71;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.formulario-contacto .btn:hover {
+    background-color: #27ae60;
+}
+
+/* =======================
+    Footer
+======================= */
+.footer {
+    background: #333;
+    color: #fff;
+    text-align: center;
+    padding: 1rem 0;
+    margin-top: 2rem;
+}
+
+/* =======================
+    Media Queries (Responsividad)
+======================= */
+
+/* =======================
+    Media Queries (Responsividad)
+======================= */
+
+/* Estilos para tabletas y dispositivos medianos */
+@media (max-width: 768px) {
+    .header .container {
+        /* Se mantiene: Permite que el logo y el toggle del menú estén en la misma fila */
+        justify-content: space-between;
+        align-items: center; /* Asegura la alineación vertical */
+    }
+    
+    .nav-and-actions {
+        /* Ocultar inicialmente el menú de navegación y acciones */
+        display: none; 
+        flex-direction: column; /* **CLAVE: Ordenar verticalmente** */
+        align-items: center; /* Centrar el contenido de la columna */
+        width: 100%; /* Ocupar todo el ancho disponible debajo del logo/toggle */
+        text-align: center;
+        gap: 15px;
+        padding-bottom: 15px;
+        /* IMPORTANTE: Se necesita un width: 100% para que se extienda */
+        position: absolute; /* Permite que el menú desplegable fluya por debajo */
+        top: 60px; /* Ajusta esto según la altura de tu header */
+        left: 0;
+        background-color: #fff; /* Fondo para que tape el contenido inferior */
+        border-top: 1px solid #eee;
+        z-index: 10;
+    }
+
+    /* Mostrar el menú cuando tiene la clase 'active' */
+    .nav-and-actions.active {
+        display: flex;
+    }
+
+    .menu-toggle {
+        display: flex; /* Mostrar el icono del menú hamburguesa */
+    }
+    
+    .nav {
+        width: 100%;
+    }
+
+    .nav ul {
+        flex-direction: column; /* **CLAVE: Ordenar los enlaces verticalmente** */
+        gap: 0;
+    }
+
+    .nav ul li {
+        width: 100%;
+        margin: 0;
+    }
+
+    .nav ul li a {
+        display: block;
+        padding: 12px;
+        border-bottom: 1px solid #f4f4f4;
+        width: 100%; /* Asegura que el enlace cubra todo el ancho del li */
+        box-sizing: border-box;
+    }
+    
+    /* Asegura que los iconos y el login-btn estén centrados/ordenados */
+    .header-icons {
+        justify-content: center;
+        margin-top: 5px;
+    }
+
+    .login-btn {
+        margin-top: 5px;
+        margin-bottom: 10px;
+    }
+    
+    /* Para evitar que el formulario de contacto se vea afectado */
+    .contacto {
+        padding-top: 40px;
+    }
+}
+
+
+
+
+
+</style>
+
+</head>
+<body>
+
+<header class="header">
+    <div class="container">
+        <a href="#" class="logo">
+            <img src="imagenes/logo.jpeg" alt="Logo de la tienda de frutas">
+        </a>
+
+        <div class="menu-toggle" id="menuToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <div class="nav-and-actions" id="navAndActions">
+            <nav class="nav">
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="frutas.html">Frutas</a></li>
+                    <li><a href="verduras.html">Verduras</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </nav>
+            
+            <div class="header-icons">
+                <a href="https://wa.me/51933470244" target="_blank" class="social-icon"><img src="imagenes/whatsapp.png" alt="WhatsApp"></a>
+                <a href="https://tiktok.com/@tuusuario" target="_blank" class="social-icon"><img src="imagenes/tiktok.png" alt="TikTok"></a>
+                <a href="https://facebook.com" target="_blank" class="social-icon"><img src="imagenes/facebook.png" alt="Facebook"></a>
+                <a href="https://instagram.com" target="_blank" class="social-icon"><img src="imagenes/instagram.png" alt="Instagram"></a>
+            </div>
+
+            <div class="login-btn" id="openModal" style="cursor: pointer;">
+                <img src="imagenes/user.png" alt="Usuario">
+                <span>Entrar</span>
+            </div>
+        </div>
+    </div>
+</header>
+
+<section id="contacto" class="contacto">
+    <h2>Contáctanos</h2>
+    <p>¿Tienes preguntas o deseas hacer un pedido? Escríbenos.</p>
+
+    <form action="#" method="post" class="formulario-contacto">
+        <div class="campo">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required>
+        </div>
+
+        <div class="campo">
+            <label for="correo">Correo:</label>
+            <input type="email" id="correo" name="correo" required>
+        </div>
+
+        <div class="campo">
+            <label for="telefono">Teléfono:</label>
+            <input type="tel" id="telefono" name="telefono">
+        </div>
+
+        <div class="campo">
+            <label for="mensaje">Mensaje:</label>
+            <textarea id="mensaje" name="mensaje" rows="5" required></textarea>
+        </div>
+
+        <button type="submit" class="btn">Enviar mensaje</button>
+    </form>
+</section>
+
+<footer class="footer">
+    <div class="container">
+        <p>&copy; 2024 Mi Tienda. Todos los derechos reservados.</p>
+    </div>
+</footer>
+
+<script>
+// Lógica para el Menú Hamburguesa (Responsivo)
+const menuToggle = document.getElementById('menuToggle');
+const navAndActions = document.getElementById('navAndActions');
+
+// El icono del menú hamburguesa usa 3 <span>, no un carácter ☰, ajustamos el script.
+menuToggle.addEventListener('click', () => {
+    navAndActions.classList.toggle('active');
+    // Opcional: Agregar una clase al toggle para animar el icono (por ejemplo, a una X)
+    menuToggle.classList.toggle('open'); 
+});
+
+// Lógica para el modal de Login (Asumiendo que existe un div con id="loginModal")
+document.getElementById("openModal").addEventListener("click", function() {
+    // Si 'loginModal' y 'closeModal' no existen en el HTML, esta parte generará errores.
+    // Por simplicidad, se mantiene la lógica asumiendo que los vas a añadir.
+    const modal = document.getElementById("loginModal");
+    if (modal) {
+        modal.style.display = "block";
+    } else {
+        console.warn("Elemento con id 'loginModal' no encontrado.");
+    }
+});
+
+/* El resto de la lógica del modal necesita que el modal exista en el HTML */
+/*
+document.getElementById("closeModal").addEventListener("click", function() {
+    document.getElementById("loginModal").style.display = "none";
+});
+
+window.onclick = function(event) {
+    const modal = document.getElementById("loginModal");
+    if (modal && event.target == modal) {
+        modal.style.display = "none";
+    }
+};
+*/
+</script>
+
+</body>
+</html>

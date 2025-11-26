@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda en Línea - Productos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Estilos Generales */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* HEADER */
+        .header {
+            background: #fff;
+            color: #333;
+            padding: 1rem 0;
+            border-bottom: 2px solid #eee;
+            position: sticky; /* Asegura que el header siempre esté visible */
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo img {
+            max-width: 150px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .nav ul {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+            gap: 20px;
+        }
+
+        .nav ul li a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 700;
+            transition: color 0.2s;
+        }
+        
+        .nav ul li a:hover {
+            color: #00c853;
+        }
+
+        .nav-and-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .header-icons {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-icons img {
+            width: 26px;
+            height: 26px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .header-icons img:hover {
+            transform: scale(1.15);
+        }
+
+        .login-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: linear-gradient(45deg, #00c853, #009624);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            text-decoration: none;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .login-btn:hover {
+            opacity: 0.9;
+        }
+
+        .login-btn img {
+            width: 20px;
+            height: 20px;
+            filter: invert(1);
+        }
+
+        /* Footer */
+        .footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: 2rem;
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 400px;
+            border-radius: 10px;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .modal-content input, .modal-content button {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .modal-content button {
+            background: #007bff;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .modal-content button:hover {
+            background: #0056b3;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* =========================
+            MAIN CONTENT / PRODUCTS
+        ========================= */
+        .main-content {
+            padding: 2rem 0;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .product-card {
+            background: #fff;
+            border-radius: 14px;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: transform 0.25s ease, box-shadow 0.3s ease;
+            border: 1px solid #e9e9e9;
+        }
+
+        .product-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+        }
+
+        .card-imagen-container {
+            width: 100%;
+            height: 220px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #f2f2f2;
+            position: relative;
+        }
+
+        .card-imagen-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-card h3 {
+            margin: 10px 0;
+        }
+
+        .product-card p {
+            font-size: 0.9rem;
+            color: #666;
+            height: 40px; /* Altura fija para que no salte el layout */
+            overflow: hidden;
+        }
+
+        .product-card .price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #007bff; /* Color azul para precios */
+            display: block;
+            margin: 10px 0;
+        }
+
+        .product-card button {
+            background: #00c853; /* Usamos el verde principal */
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .product-card button:hover {
+            background: #009624;
+        }
+
+        /* =========================
+            MINI CAROUSEL (Dentro de cada card)
+        ========================= */
+        .mini-carousel {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .mini-carousel img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .mini-carousel img.active {
+            opacity: 1;
+            z-index: 1;
+        }
+
+        .mini-carousel button.prev,
+        .mini-carousel button.next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.55);
+            color: white;
+            border: none;
+            font-size: 1.2rem;
+            padding: 5px 10px;
+            cursor: pointer;
+            z-index: 2;
+            border-radius: 6px;
+            transition: 0.2s ease;
+        }
+
+        .mini-carousel button.prev { left: 5px; }
+        .mini-carousel button.next { right: 5px; }
+
+        .mini-carousel button:hover {
+            background: rgba(0,0,0,0.8);
+        }
+
+        /* =========================
+            CARRITO FLOTANTE
+        ========================= */
+        .carrito {
+            position: fixed;
+            top: 70px;
+            right: 20px;
+            width: 300px;
+            background: white;
+            border: 1px solid #ccc;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            display: none;
+            z-index: 999;
+        }
+
+        .carrito h3 { margin-bottom: 15px; color: #00c853; }
+        .carrito ul { list-style: none; max-height: 200px; overflow-y: auto; padding-left: 0; }
+        .carrito ul li { margin-bottom: 10px; font-size: 0.95rem; }
+        .carrito button {
+            margin-top: 10px;
+            background: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+        }
+        .carrito button:hover { background: #218838; }
+
+        .carrito-header {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: #00c853; /* Usamos el color verde principal */
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            color: white;
+            font-weight: bold;
+            transition: transform 0.2s ease;
+        }
+
+        .carrito-header img { width: 22px; height: 22px; filter: invert(1); }
+        .carrito-header:hover { transform: scale(1.05); }
+
+        /* =========================
+            RESPONSIVE
+        ========================= */
+        /* Menú Hamburguesa (oculto en escritorio) */
+        .menu-toggle { 
+            display: none; 
+            cursor: pointer; 
+            position: relative;
+            width: 30px;
+            height: 20px;
+            z-index: 10;
+        }
+        .menu-toggle span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background: #333;
+            margin: 4px 0;
+            transition: 0.4s;
+        }
+        
+        @media (max-width: 768px) {
+            /* Header */
+            .header .container {
+                flex-wrap: wrap;
+                justify-content: space-between;
+            }
+
+            .nav-and-actions {
+                flex-direction: column;
+                gap: 15px;
+                width: 100%;
+                display: none; /* Ocultar navegación por defecto */
+                text-align: center;
+                margin-top: 10px;
+            }
+            
+            .nav-and-actions.active { /* Clase para mostrarlo */
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: block; /* Mostrar botón de hamburguesa */
+            }
+            
+            .nav ul {
+                flex-direction: column;
+                gap: 10px;
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+            .header-icons {
+                margin-bottom: 10px;
+            }
+            
+            /* Productos */
+            .product-grid { 
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); 
+                gap: 18px; 
+            }
+            .card-imagen-container { height: 180px; }
+            .product-card button { width: 100%; padding: 12px; }
+
+            /* Carrito */
+            .carrito {
+                width: 90%;
+                right: 5%;
+                left: 5%;
+                max-width: none;
+                top: 80px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .product-grid { grid-template-columns: 1fr; }
+            .card-imagen-container { height: 250px; } 
+
+            .mini-carousel button.prev,
+            .mini-carousel button.next {
+                top: auto;
+                bottom: 5px; 
+                transform: none; 
+                font-size: 1rem;
+                padding: 4px 8px;
+                background: rgba(0,0,0,0.5);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="imagenes/logo.jpeg" alt="Logo de la tienda">
+            </a>
+
+            <div class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <div class="nav-and-actions" id="navAndActions">
+                <nav class="nav">
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="frutas.html">Frutas</a></li>
+                        <li><a href="verduras.html">Verduras</a></li>
+                        <li><a href="contacto.html">Contacto</a></li>
+                    </ul>
+                </nav>
+                
+                <div class="header-icons">
+                    <a href="https://wa.me/51933470244" target="_blank" class="social-icon"><img src="imagenes/whatsapp.png" alt="WhatsApp"></a>
+                    <a href="https://tiktok.com/@tuusuario" target="_blank" class="social-icon"><img src="imagenes/tiktok.png" alt="TikTok"></a>
+                    <a href="https://facebook.com" target="_blank" class="social-icon"><img src="imagenes/facebook.png" alt="Facebook"></a>
+                    <a href="https://instagram.com" target="_blank" class="social-icon"><img src="imagenes/instagram.png" alt="Instagram"></a>
+                    
+                    <div class="carrito-header" onclick="toggleCarrito()">
+                        <img src="imagenes/carrito.png" alt="Carrito">
+                        <span id="contador-carrito">0</span>
+                    </div>
+                </div>
+
+                <div class="login-btn" id="openModal" style="cursor: pointer;">
+                    <img src="imagenes/user.png" alt="Usuario">
+                    <span>Entrar</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <h2>Nuestras Frutas Frescas</h2>
+            <div class="product-grid">
+
+                <div class="product-card">
+                    <div class="card-imagen-container">
+                        <div class="mini-carousel">
+                            <img src="imagenes/manzana1.jpg" class="active" alt="manzana roja">
+                            <img src="imagenes/manzana2.jpg" alt="manzana roja">
+                            <img src="imagenes/manzana3.jpg" alt="manzana roja">
+                            <button class="prev" onclick="prevImage(this, event)">❮</button>
+                            <button class="next" onclick="nextImage(this, event)">❯</button>
+                        </div>
+                    </div>
+                    <h3>Manzana Roja</h3>
+                    <p>Manzana roja fresca, crujiente y dulce. Ideal para snacks, jugos o loncheras</p>
+                    <span class="price">6.70 x Kilo</span>
+                    <button class="btn-agregar">Añadir al carrito</button>
+                </div>
+
+                <div class="product-card">
+                    <div class="card-imagen-container">
+                        <div class="mini-carousel">
+                            <img src="imagenes/manzanagrani1.jpg" class="active" alt="manzanagrani">
+                            <img src="imagenes/manzanagrani2.jpg" alt="manzanagrani">
+                            <img src="imagenes/manzanagrani3.jpg" alt="manzanagrani1">
+                            <button class="prev" onclick="prevImage(this, event)">❮</button>
+                            <button class="next" onclick="nextImage(this, event)">❯</button>
+                        </div>
+                    </div>
+                    <h3>Manzana Granny Smith</h3>
+                    <p>Manzana verde, crujiente y con un sabor ácido y refrescante. Ideal para snacks, ensaladas y jugos. Frescura garantizada en cada entrega</p>
+                    <span class="price">9.00 x Kilo</span>
+                    <button class="btn-agregar">Añadir al carrito</button>
+                </div>
+
+                <div class="product-card">
+                    <div class="card-imagen-container">
+                        <div class="mini-carousel">
+                            <img src="imagenes/manzanafuji1.jpg" class="active" alt="manzanafuji">
+                            <img src="imagenes/manzanafuji2.jpg" alt="manzanafuji">
+                            <img src="imagenes/manzanafuji3.jpg" alt="manzanafuji">
+                            <button class="prev" onclick="prevImage(this, event)">❮</button>
+                            <button class="next" onclick="nextImage(this, event)">❯</button>
+                        </div>
+                    </div>
+                    <h3>Manzana Fuji</h3>
+                    <p>Manzana dulce, extra jugosa y de pulpa firme. De sabor equilibrado y aroma intenso, perfecta para snacks, postres y consumo diario. Frescura garantizada en cada entrega.</p>
+                    <span class="price">9.50 x Kilo</span>
+                    <button class="btn-agregar">Añadir al carrito</button>
+                </div>
+                
+                <div class="product-card">
+                    <div class="card-imagen-container">
+                        <div class="mini-carousel">
+                            <img src="imagenes/manzanadelicia1.jpg" class="active" alt="Manzana Delicia">
+                            <img src="imagenes/manzanadelicia2.jpg" alt=" Manzana Delicia">
+                            <img src="imagenes/manzanadelicia1.jpg" alt=" Manzana Delicia">
+                            <button class="prev" onclick="prevImage(this, event)">❮</button>
+                            <button class="next" onclick="nextImage(this, event)">❯</button>
+                        </div>
+                    </div>
+                    <h3>Manzana Delicia</h3>
+                    <p>Manzana dulce, aromática y muy jugosa. Su textura suave y sabor agradable la hacen perfecta para snacks, postres o consumo diario. Frescura garantizada en cada entrega.</p>
+                    <span class="price">3.50 x Kilo</span>
+                    <button class="btn-agregar">Añadir al carrito</button>
+                </div>
+
+                <div class="product-card">
+                    <div class="card-imagen-container">
+                        <div class="mini-carousel">
+                            <img src="imagenes/uva1.jpg" class="active" alt="uva">
+                            <img src="imagenes/uva2.jpg" alt="uva">
+                            <img src="imagenes/uva3.jpg" alt="uva">
+                            <button class="prev" onclick="prevImage(this, event)">❮</button>
+                            <button class="next" onclick="nextImage(this, event)">❯</button>
+                        </div>
+                    </div>
+                    	<h3>Uva</h3>
+                    	<p>Uvas dulces, jugosas y de textura firme. Perfectas para snacks, jugos y postres. 				Frescura garantizada en cada entrega</p>
+                   	 <span class="price">13.70 x Kilo</span>
+                    	<button class="btn-agregar">Añadir al carrito</button>
+                   </div>
+
+                <div class="product-card">
+                    <div class="card-imagen-container">
+                        <div class="mini-carousel">
+                            <img src="imagenes/tuna1.jpg" class="active" alt="tuna">
+                            <img src="imagenes/tuna2.jpg" alt="tuna">
+                            <img src="imagenes/tuna3.jpg" alt="tuna">
+                            <button class="prev" onclick="prevImage(this, event)">❮</button>
+                            <button class="next" onclick="nextImage(this, event)">❯</button>
+                        </div>
+                    </div>
+                    <h3>Tuna Fresca</h3>
+                    <p>Fruta dulce, jugosa y refrescante, con un sabor suave y natural. Ideal para postres, 			jugos o disfrutarla al instante. Frescura garantizada en cada entrega.</p>
+                    <span class="price">11.50 x Kilo</span>
+                    <button class="btn-agregar">Añadir al carrito</button>
+                </div>
+
+		<div class="product-card">
+                    <div class="card-imagen-container">
+                        <div class="mini-carousel">
+                            <img src="imagenes/carambola1.jpg" class="active" alt="carambola">
+                            <img src="imagenes/carambola2.jpg" alt="carambola">
+                            <img src="imagenes/carambola3.jpg" alt="carambola">
+                            <button class="prev" onclick="prevImage(this, event)">❮</button>
+                            <button class="next" onclick="nextImage(this, event)">❯</button>
+                        </div>
+                    </div>
+                    <h3>Carambola Fresca</h3>
+                    <p>Fruta tropical de sabor suave y refrescante, con un equilibrio entre dulce y ligeramente ácido. Ideal para jugos, ensaladas y decoración de postres. Frescura garantizada en cada entrega.</p>
+                    <span class="price">8.70 x Kilo</span>
+                    <button class="btn-agregar">Añadir al carrito</button>
+                </div>
+
+<div class="product-card">
+                    <div class="card-imagen-container">
+                        <div class="mini-carousel">
+                            <img src="imagenes/platano1.jpg" class="active" alt="platano">
+                            <img src="imagenes/platano2.jpg" alt="platano">
+                            <img src="imagenes/platano3.jpg" alt="platano">
+                            <button class="prev" onclick="prevImage(this, event)">❮</button>
+                            <button class="next" onclick="nextImage(this, event)">❯</button>
+                        </div>
+                    </div>
+                    <h3>Platano Fresco</h3>
+                    <p>Dulce, suave y lleno de energía. Ideal para snacks, batidos y postres. Frescura garantizada en cada entrega.</p>
+                    <span class="price">3.50 x Kilo</span>
+                    <button class="btn-agregar">Añadir al carrito</button>
+                </div><div class="product-card">
+                    <div class="card-imagen-container">
+                        <div class="mini-carousel">
+                            <img src="imagenes/sandia1.jpg" class="active" alt="sandia">
+                            <img src="imagenes/sandia2.jpg" alt="sandia">
+                            <img src="imagenes/sandia3.jpg" alt="sandia">
+                            <button class="prev" onclick="prevImage(this, event)">❮</button>
+                            <button class="next" onclick="nextImage(this, event)">❯</button>
+                        </div>
+                    </div>
+                    <h3>Sandia Fresca</h3>
+                    <p>Dulce, muy jugosa y refrescante. Perfecta para los días calurosos, jugos, postres y consumo directo. Frescura garantizada en cada entrega.</p>
+                    <span class="price">1.50 x Kilo</span>
+                    <button class="btn-agregar">Añadir al carrito</button>
+                </div><div class="product-card">
+                    <div class="card-imagen-container">
+                        <div class="mini-carousel">
+                            <img src="imagenes/papaya1.jpg" class="active" alt="papaya">
+                            <img src="imagenes/papaya2.jpg" alt="papaya">
+                            <img src="imagenes/papaya3.jpg" alt="papaya">
+                            <button class="prev" onclick="prevImage(this, event)">❮</button>
+                            <button class="next" onclick="nextImage(this, event)">❯</button>
+                        </div>
+                    </div>
+                    <h3>Papaya Fresca</h3>
+                    <p>Dulce, suave y muy jugosa. Ideal para jugos, desayunos y una digestión ligera. Frescura garantizada en cada entrega.</p>
+                    <span class="price">5.70 x Kilo</span>
+                    <button class="btn-agregar">Añadir al carrito</button>
+                </div><div class="product-card">
+                    <div class="card-imagen-container">
+                        <div class="mini-carousel">
+                            <img src="imagenes/palta1.jpg" class="active" alt="palta">
+                            <img src="imagenes/palta2.jpg" alt="palta">
+                            <img src="imagenes/palta3.jpg" alt="palta">
+                            <button class="prev" onclick="prevImage(this, event)">❮</button>
+                            <button class="next" onclick="nextImage(this, event)">❯</button>
+                        </div>
+                    </div>
+                    <h3>Palta Hass Fresca</h3>
+                    <p>Cremosa, suave y de sabor delicioso. Perfecta para ensaladas, desayunos, guacamole y consumo diario. Frescura garantizada en cada entrega.</p>
+                    <span class="price">11.00 x Kilo</span>
+                    <button class="btn-agregar">Añadir al carrito</button>
+                </div><div class="product-card">
+                    <div class="card-imagen-container">
+                        <div class="mini-carousel">
+                            <img src="imagenes/toronja1.jpg" class="active" alt="toronja">
+                            <img src="imagenes/toronja2.jpg" alt="toronja">
+                            <img src="imagenes/toronja3.jpg" alt="toronja">
+                            <button class="prev" onclick="prevImage(this, event)">❮</button>
+                            <button class="next" onclick="nextImage(this, event)">❯</button>
+                        </div>
+                    </div>
+                    <h3>Toronja Fresca</h3>
+                    <p>Fruta dulce, jugosa y refrescante, con un sabor suave y natural. Ideal para postres, 			jugos o disfrutarla al instante. Frescura garantizada en cada entrega.</p>
+                    <span class="price">7.00 x Kilo</span>
+                    <button class="btn-agregar">Añadir al carrito</button>
+                </div><div class="product-card">
+                    <div class="card-imagen-container">
+                        <div class="mini-carousel">
+                            <img src="imagenes/granadilla1.jpg" class="active" alt="granadilla">
+                            <img src="imagenes/granadilla2.jpg" alt="granadilla">
+                            <img src="imagenes/granadilla3.jpg" alt="granadilla">
+                            <button class="prev" onclick="prevImage(this, event)">❮</button>
+                            <button class="next" onclick="nextImage(this, event)">❯</button>
+                        </div>
+                    </div>
+                    <h3>Granadilla Fresca</h3>
+                    <p>Dulce, aromática y muy refrescante. Su pulpa suave y llena de semillas es perfecta para postres, jugos o consumir directamente. Frescura garantizada en cada entrega.</p>
+                    <span class="price">0.90 x Kilo</span>
+                    <button class="btn-agregar">Añadir al carrito</button>
+                </div>
+      
+
+        </div>
+    </main>
+
+    <div id="carrito" class="carrito">
+        <h3>🛒 Carrito de compras</h3>
+        <ul id="lista-carrito"></ul>
+        <p>Total: S/ <span id="total">0.00</span></p>
+        <button onclick="finalizarPedido()">Finalizar pedido</button>
+        <button onclick="vaciarCarrito()" style="background:#dc3545; margin-top:5px;">Vaciar carrito</button>
+    </div>
+    
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <h2>Iniciar Sesión</h2>
+            <form>
+                <input type="email" placeholder="Correo electrónico" required>
+                <input type="password" placeholder="Contraseña" required>
+                <button type="submit">Entrar</button>
+            </form>
+            <p>¿No tienes cuenta? <a href="registro.html">Regístrate aquí</a></p>
+        </div>
+    </div>
+
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Mi Tienda. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // ===================================
+        // Lógica para el Carrito de Compras
+        // ===================================
+        let carrito = [];
+        let total = 0;
+
+        function agregarAlCarrito(nombre, precio) {
+            const itemExistente = carrito.find(item => item.nombre === nombre);
+
+            if (itemExistente) {
+                itemExistente.cantidad += 1;
+                itemExistente.subtotal += precio;
+            } else {
+                carrito.push({ nombre, precio, cantidad: 1, subtotal: precio });
+            }
+            
+            total += precio;
+            actualizarCarrito();
+            document.getElementById('carrito').style.display = 'block'; 
+        }
+
+        function actualizarCarrito() {
+            const lista = document.getElementById('lista-carrito');
+            const totalSpan = document.getElementById('total');
+            const contador = document.getElementById('contador-carrito');
+
+            lista.innerHTML = '';
+            carrito.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = `${item.nombre} (x${item.cantidad}) - S/ ${item.subtotal.toFixed(2)}`;
+                lista.appendChild(li);
+            });
+
+            totalSpan.textContent = total.toFixed(2);
+            contador.textContent = carrito.reduce((acc, item) => acc + item.cantidad, 0);
+        }
+
+        function toggleCarrito() {
+            const carritoDiv = document.getElementById('carrito');
+            carritoDiv.style.display = carritoDiv.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function finalizarPedido() {
+            if (carrito.length === 0) {
+                alert("Tu carrito está vacío. ¡Añade productos antes de finalizar!");
+                return;
+            }
+            
+            let mensaje = "Hola, quiero hacer un pedido:\n";
+            carrito.forEach(item => {
+                mensaje += `- ${item.nombre} (x${item.cantidad}): S/ ${item.subtotal.toFixed(2)}\n`;
+            });
+            mensaje += `\nTotal: S/ ${total.toFixed(2)}`;
+
+            const telefono = "51933470244"; 
+            const url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
+            window.open(url, '_blank');
+        }
+
+        function vaciarCarrito() {
+            carrito = [];
+            total = 0;
+            actualizarCarrito();
+            document.getElementById('carrito').style.display = 'none'; 
+        }
+
+
+        // Asignar eventos de agregar al carrito
+        document.addEventListener('DOMContentLoaded', () => {
+            const botones = document.querySelectorAll('.btn-agregar');
+            botones.forEach(boton => {
+                boton.addEventListener('click', (e) => {
+                    e.stopPropagation(); 
+                    const card = boton.closest('.product-card');
+                    const nombre = card.querySelector('h3').textContent;
+                    // Asume que el precio está en el span.price sin el 'S/ '
+                    const precio = parseFloat(card.querySelector('.price').textContent.replace('S/ ', ''));
+                    agregarAlCarrito(nombre, precio);
+                });
+            });
+
+            // Lógica del Modal 
+            const modal = document.getElementById('loginModal');
+            const btn = document.getElementById('openModal');
+            const span = document.getElementById('closeModal');
+            
+            if(btn) btn.onclick = function() { modal.style.display = "block"; }
+            if(span) span.onclick = function() { modal.style.display = "none"; }
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+
+            // Lógica del Menú Hamburguesa
+            const menuToggle = document.getElementById('menuToggle');
+            const navAndActions = document.getElementById('navAndActions');
+
+            if(menuToggle && navAndActions) {
+                menuToggle.addEventListener('click', () => {
+                    navAndActions.classList.toggle('active');
+                    menuToggle.classList.toggle('active');
+                });
+            }
+        });
+
+
+        // ===================================
+        // Lógica para el Mini Carrusel de Imágenes (por Card)
+        // ===================================
+
+        function nextImage(button, event) {
+            event.stopPropagation(); 
+            const carousel = button.closest('.mini-carousel');
+            const images = carousel.querySelectorAll('img');
+            let index = Array.from(images).findIndex(img => img.classList.contains('active'));
+
+            images[index].classList.remove('active');
+            index = (index + 1) % images.length;
+            images[index].classList.add('active');
+        }
+
+        function prevImage(button, event) {
+            event.stopPropagation(); 
+            const carousel = button.closest('.mini-carousel');
+            const images = carousel.querySelectorAll('img');
+            let index = Array.from(images).findIndex(img => img.classList.contains('active'));
+
+            images[index].classList.remove('active');
+            index = (index - 1 + images.length) % images.length;
+            images[index].classList.add('active');
+        }
+    </script>
+</body>
+</html>
